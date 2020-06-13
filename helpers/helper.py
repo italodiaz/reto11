@@ -8,6 +8,7 @@ from jwt import decode
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 
+
 def handler_response(app, code_error, output, validate=True, payload=None):
     if payload is None:
         payload = {}
@@ -29,8 +30,10 @@ def handler_response(app, code_error, output, validate=True, payload=None):
 
     return response
 
+
 def jwt_secret():
     return os.getenv('JWT_SECRET')
+
 
 def token_required(f):
     @wraps(f)

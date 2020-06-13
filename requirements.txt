@@ -3,5 +3,3 @@ orator==0.9.9
 psycopg2-binary==2.8.5
 python-dotenv==0.13.0
 requests==2.23.0
-flake8
-pymessenger
