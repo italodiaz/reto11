@@ -1,29 +1,14 @@
 from flask import request
-from controllers.user import users
-from helpers.helper import token_required
-from requests import get
+from controllers.user import User
 
-UserController = users()
+UserController = User()
+
 
 def user_routes(app):
-    @app.route('/users', methods=['POST'])
-    @token_required
+    @app.route('/', methods=['POST'])
     def create_user():
         values = request.values
-        UserController.username = values.get('username')
-        UserController.password = values.get('password')
+        UserController.username = values.get('user_id')
         UserController.name = values.get('name')
-        UserController.last_name = values.get('last_name')
-        UserController.age = values.get('age')
+        UserController.last_name = values.get('email')
         return UserController.add_user(UserController, app)
-
-
-    @app.route('/login', methods=['POST'])
-    def login():
-        # Consumo de api externa
-        #response = get('http://google.com.pe')
-        #print(response.text)
-        values = request.values
-        UserController.username = values.get('username')
-        UserController.password = values.get('password')
-        return UserController.login(UserController, app)

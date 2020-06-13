@@ -6,6 +6,7 @@ from pathlib import Path
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 
+
 class Conexion:
     def __init__(self):
         self.default = os.getenv('DB_DEFAULT')
@@ -40,4 +41,3 @@ class Conexion:
         conn = self.initiliaze()
         Model.set_connection_resolver(conn)
         return Model
-
