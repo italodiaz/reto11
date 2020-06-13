@@ -46,12 +46,37 @@ def routes(app):
                                 {"user_id": recipient_id, "message": message,
                                  "message_id": message_id})
                             response = f"Hola {usuario}"
-                            bot.send_text_message(recipient_id, response)
+                            bot.send_button_message(
+                                recipient_id, response, get_options())
                         if x['message'].get('attachments'):
                             for att in x['message'].get('attachments'):
                                 bot.send_attachment_url(
                                     recipient_id, att['type'],
                                     att['payload']['url'])
+                    elif x.get('postback'):
+                        postback_message(x)
                     else:
                         pass
             return "Success"
+
+    def postback_message(x):
+        option = x['postback']['payload']
+        recipient_id = x['sender']['id']
+        option_parse = option.replace('_', ' ').capitalize()
+        mensaje = f'Su elección fue {option_parse}'
+        bot.send_text_message(recipient_id, mensaje)
+
+    def get_options():
+        return [{
+            "type": "postback",
+            "title": "Option 1",
+            "payload": "option_1"
+        }, {
+            "type": "postback",
+            "title": "Option 2",
+            "payload": "option_2"
+        }, {
+            "type": "postback",
+            "title": "Option 3",
+            "payload": "option_3"
+        }]
