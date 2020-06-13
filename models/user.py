@@ -15,7 +15,7 @@ class users(Model):
     __fillable__ = ['user_id', 'name', 'email']
 
     __casts__ = {
-        'user_id': 'bigint',
+        'user_id': 'int',
         'name': 'str',
         'email': 'str'
     }

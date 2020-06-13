@@ -7,17 +7,15 @@ class CreateUsersTable(Migration):
         """
         Run the migrations.
         """
-        with self.schema.create('users') as table:
+        with self.schema.create('user') as table:
             table.increments('id')
-            table.string('username')
-            table.string('password')
+            table.big_integer('user_id')
             table.string('name')
-            table.string('last_name')
-            table.integer('age')
+            table.string('email')
             table.timestamps()
 
     def down(self):
         """
         Revert the migrations.
         """
-        self.schema.drop('users')
+        self.schema.drop('user')

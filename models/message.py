@@ -14,11 +14,12 @@ class message(Model):
 
     __guarded__ = ['id']
 
-    __fillable__ = ['message', 'id_user']
+    __fillable__ = ['message_id', 'message', 'id_user']
 
     __casts__ = {
-        'message': 'bigint',
-        'id_user': 'str'
+        'message': 'str',
+        'message_id': 'str',
+        'id_user': 'int'
     }
 
     @has_one('id', 'id_user')

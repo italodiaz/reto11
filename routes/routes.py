@@ -3,9 +3,12 @@ from dotenv import load_dotenv
 from pathlib import Path
 from flask import Flask, request
 from pymessenger.bot import Bot
-from controllers.user import User
+from controllers.user import users as User
+from controllers.message import message as Message
 
 UserController = User()
+
+MessageController = Message()
 
 
 app = Flask(__name__)
@@ -36,7 +39,14 @@ def routes(app):
                         recipient_id = x['sender']['id']
                         if x['message'].get('text'):
                             message = x['message']['text']
-                            bot.send_text_message(recipient_id, message)
+                            message_id = x['message']['mid']
+                            UserController.add_user(
+                                ACCESS_TOKEN, message_id, recipient_id)
+                            usuario = MessageController.add_message(
+                                {"user_id": recipient_id, "message": message,
+                                 "message_id": message_id})
+                            response = f"Hola {usuario}"
+                            bot.send_text_message(recipient_id, response)
                         if x['message'].get('attachments'):
                             for att in x['message'].get('attachments'):
                                 bot.send_attachment_url(
