@@ -2,4 +2,4 @@ Flask==1.1.2
 orator==0.9.9
 psycopg2-binary==2.8.5
 python-dotenv==0.13.0
-requests==2.23.0
+requests==2.31.0
